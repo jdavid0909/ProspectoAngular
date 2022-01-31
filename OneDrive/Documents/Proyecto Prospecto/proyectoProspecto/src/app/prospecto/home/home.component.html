@@ -1,0 +1,265 @@
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h5 class="text-white h4">Collapsed content</h5>
+      <span class="text-muted">Toggleable via the navbar brand.</span>
+    </div>
+  </div>
+  <nav class="navbar navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+</div>
+<div class="animated fadeIn">
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header colores">
+                  <strong>Prospecto</strong>
+              </div>
+              <div class="card-body fondo">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="table-responsive">
+                              <div class="col-sm-12 col-md-12 col-xl-12 pb-3">
+                                  <div class="row">
+                                      <div class="btn-group ml-auto">
+                                          <button type="button" class="btn btn-sm fondo-menu t-boton" (click)="Edit('')"><i class="fa fa-plus pr-2"></i>Nuevo</button>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-sm-12">
+                                <form [formGroup]="prospecto"autocomplete="off" novalidate >
+                                  <!-- <label for="id_almacen_receptor" class="titles"><span class="punto"></span>Filtro</label><br> -->
+                                  <div class="col-md-12 pr-0 pl-0">
+                                    <div class="row">
+                                      <div class="form-group col-xl-3 col-md-3 col-sm-12">
+                                        <label for="estado" class="titles"><span class="punto">*</span>Estado</label>
+                                        <ng-select dropdownPosition="bottom" class="sololetras" bindLabel="descripcion" bindValue="id" id="estado"
+                                          name="estado" formControlName="prospecto" placeholder="Seleccione" 
+                                          [(ngModel)]="prospectoVar.prospecto" [items]="prospectoBusquedad">
+                                        </ng-select>
+                    
+                                        <div
+                                          *ngIf="!prospecto.controls['prospecto'].valid && prospecto.controls['prospecto'].touched">
+                    
+                                          <p class="text-danger animated fadeIn"
+                                            *ngIf="prospecto.controls['prospecto'].errors.required">¡prospecto es requerido!</p>
+                                          <p class="text-danger animated fadeIn"
+                                            *ngIf="prospecto.controls['prospecto'].errors.minlength">Debe ser de al menos
+                                            {{prospecto.controls['prospecto'].errors.minlength.requiredLength}} caracteres.</p>
+                    
+                                        </div>
+                                      </div>
+                                      <div class="form-group col-xl-3 col-md-3 col-sm-12">
+                                        <label for="descripcion" class="titles"><span class="punto">*</span>Descripcion</label>
+                                        <input class="form-control numeroMas" type="text" name="descripcion" id="Descripcion" formControlName="descripcion" 
+                                         [(ngModel)]="prospectoVar.descripcion">
+                  
+                                        <div *ngIf="!prospecto.controls['descripcion'].valid && prospecto.controls['descripcion'].touched"> 
+                                            <p class="text-danger animated fadeIn" *ngIf="prospecto.controls['descripcion'].errors.required">¡Desctipcion es requerida!</p>
+                                           <p class="text-danger animated fadeIn" *ngIf="prospecto.controls['descripcion'].errors.minlength">Debe ser de al menos {{prospecto.controls['descripcion'].errors.minlength.requiredLength}} caracteres.</p> 
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xl-3 col-md-3 col-sm-12">
+                                      <div class="btn-group">
+                                        <button type="button" [disabled]="!prospecto.valid" style="margin-top:30px"
+                                          class="btn btn-primary btn-sm" (click)="Buscar(prospectoVar)"><i
+                                            class="fa fa-filter pr-2"></i>Buscar</button>
+                                      </div>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="busqueda">    
+                              <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                  <thead class="text-center bg-light">
+                                      <tr>
+                                        <th>Nombre</th>
+                                        <th>Edad</th>
+                                        <th>Email</th>
+                                        <th>ID</th>
+                                        <th>Estatus</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                      <tr *ngIf="prospectos">
+                                        <!-- <td>{{i + 1}}</td> -->
+                                        <td class="text-left pl-3">{{prospectos.prospectoName}}</td>
+                                        <td class="text-left pl-3">{{prospectos.prospectoAge}}</td>
+                                        
+                                        <td class="text-left pl-3">{{prospectos.prospectoMail}}</td>
+                                        <td class="text-left pl-3">{{prospectos.prospectoId}}</td>
+                                        <td class="text-left pl-3">{{prospectos.prospectoStatus}}</td>
+
+                                        <!-- <td>
+                                          <div class="btn-group" dropdown container="body">
+                                            <button id="button-custom-html" dropdownToggle type="button"
+                                              class="btn btn-primary btn-sm mr-1  dropdown-toggle"
+                                              aria-controls="button-custom-html">Opciones<span class="caret"></span>
+                                            </button>
+                                            <ul id="button-custom-html" *dropdownMenu class="dropdown-menu" role="menu"
+                                              aria-labelledby="button-custom-html">
+                      
+                                              <li 
+                                               role="menuitem"><a class="dropdown-item fa fa-camera" href="#" onclick="return false;"
+                                                  (click)="Asignar(item)">
+                                                  <span>&nbsp;Asignar Atributos</span>
+                                                </a>
+                                              </li>
+                                              <li 
+                                               role="menuitem"><a class="fa fa-users" href="#" onclick="return false;"
+                                                  (click)="AsignarConfiguracion(item)">
+                                                  <span>&nbsp;Atributos</span>
+                                                </a>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                          <button type="button" class="btn btn-success btn-sm mr-1" data-toggle="tooltip"
+                                            data-placement="top" title="Editar" (click)="Edit(item)"><i
+                                              class="fa fa-pencil"></i></button>
+                
+                                        </td> -->
+                                      </tr>
+                                    </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+     </div>
+  </div> 
+</div> 
+<div bsModal #primaryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" autocomplete="off" [config]="{ignoreBackdropClick: true, keyboard: false}">
+  <div class="modal-dialog modal-lm" role="document">
+    <div class="modal-content fondo" appMovable>
+      <div class="modal-header">
+        <h5 class="modal-title letterSize">Agregar</h5>
+        <button type="button" class="close" (click)="hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form [formGroup]="formModal" action="">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="nombre" class="titles"><span class="punto">*</span>Nombre</label>
+                    <input class="form-control letrasguion" type="text" id="nombre" name="nombre"
+                          [(ngModel)]="prospectoForm.nombre"  
+                          formControlName="nombre">
+
+                    <div
+                      *ngIf="!formModal.controls['nombre'].valid && formModal.controls['nombre'].touched">
+
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['nombre'].errors.required">¡El nombre es requerido!</p>
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['nombre'].errors.minlength">Debe ser de al menos
+                        {{formModal.controls['nombre'].errors.minlength.requiredLength}} caracteres.</p>
+
+                    </div>
+                  </div>
+                </div>  
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="age" class="titles"><span class="punto">*</span>Edad</label>
+                    <input class="form-control letrasguion" type="text" id="age" name="age"
+                          [(ngModel)]="prospectoForm.age"  
+                          formControlName="age">
+
+                    <div
+                      *ngIf="!formModal.controls['age'].valid && formModal.controls['age'].touched">
+
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['age'].errors.required">¡El age es requerido!</p>
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['age'].errors.minlength">Debe ser de al menos
+                        {{formModal.controls['age'].errors.minlength.requiredLength}} caracteres.</p>
+
+                    </div>
+                  </div>
+                </div>  
+                
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="email" class="titles"><span class="punto">*</span>Email</label>
+                    <input class="form-control letrasguion" type="text" id="email" name="email"
+                          [(ngModel)]="prospectoForm.email"  
+                          formControlName="email">
+
+                    <div
+                      *ngIf="!formModal.controls['email'].valid && formModal.controls['email'].touched">
+
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['email'].errors.required">¡El email es requerido!</p>
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['email'].errors.minlength">Debe ser de al menos
+                        {{formModal.controls['email'].errors.minlength.requiredLength}} caracteres.</p>
+
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="status" class="titles"><span class="punto">*</span>Estado</label>
+                    <input class="form-control letrasguion" type="text" id="status" name="status"
+                          [(ngModel)]="prospectoForm.status"  
+                          formControlName="estado">
+
+                    <div
+                      *ngIf="!formModal.controls['estado'].valid && formModal.controls['estado'].touched">
+
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['estado'].errors.required">¡El estado es requerido!</p>
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['estado'].errors.minlength">Debe ser de al menos
+                        {{formModal.controls['estado'].errors.minlength.requiredLength}} caracteres.</p>
+
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="id" class="titles"><span class="punto">*</span>id</label>
+                    <input class="form-control letrasguion" type="text" id="id" name="id"
+                          [(ngModel)]="prospectoForm.id"  
+                          formControlName="id">
+
+                    <div
+                      *ngIf="!formModal.controls['id'].valid && formModal.controls['id'].touched">
+
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['id'].errors.required">¡El id es requerido!</p>
+                      <p class="text-danger animated fadeIn"
+                        *ngIf="formModal.controls['id'].errors.minlength">Debe ser de al menos
+                        {{formModal.controls['id'].errors.minlength.requiredLength}} caracteres.</p>
+
+                    </div>
+                  </div>
+                </div> 
+                
+              </div>   
+            </form>
+          </div>
+        </div>     
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm" [disabled]="!formModal.valid"
+         (click)="guardar(prospectoForm)">
+          <i class="fa fa-save pr-2"></i>Guardar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="hide()">
+          <i class=" fa fa-ban pr-2 "></i>Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
