@@ -89,8 +89,17 @@ export class HomeComponent implements OnInit {
   }
 
   Buscar(uris){
+
+  let urisService;
+
+    if(uris.prospecto == 1){
+     urisService = '/'+ uris.descripcion;
+    }else if (uris.prospecto == 2){
+      urisService = `?page=0&size=5&sort=prospectoId&sort=desc&prospectoName=${uris.descripcion}`
+    }
+  
    
-      this.service.Get('/'+uris.descripcion)
+      this.service.Get(urisService)
         .subscribe(
           data => {
            // this.foundBooks = data.json();
