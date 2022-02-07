@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="makefile">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/AmazonViewer/libs/makefile.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
